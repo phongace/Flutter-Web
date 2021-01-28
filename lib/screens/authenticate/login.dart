@@ -33,14 +33,17 @@ class _LoginPageState extends State<LoginPage> {
                   BaseTextInput(
                     hint: 'Username',
                     textCtrl: _username,
-                    validator: (val) => val.isEmpty ? "Username không được để trống!" : null,
+                    validator: (val) =>
+                        val.isEmpty ? "Username không được để trống!" : null,
                   ),
                   const SizedBox(height: 18),
                   BaseTextInput(
                     hint: 'Password',
                     textCtrl: _pass,
                     obscureText: true,
-                    validator: (val) => val.isEmpty ? "Password không được để trống!" : null,
+                    validator: (val) =>
+                        val.isEmpty ? "Password không được để trống!" : null,
+                    onSubmitted: (value) => login(),
                   ),
                   const SizedBox(height: 18),
                   Container(
@@ -72,7 +75,8 @@ class _LoginPageState extends State<LoginPage> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        onTap: () => Navigator.pushNamed(context, RoutingNameConstant.Register),
+                        onTap: () => Navigator.pushNamed(
+                            context, RoutingNameConstant.Register),
                       ),
                     ],
                   ),

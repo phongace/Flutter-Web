@@ -1,28 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:time_store/config/constant.dart';
 
-class CustomPaginatedTale extends StatelessWidget {
-  // const CustomPaginatedTale({
-  //   Key key,
-  //   this.rowsPerPage = PaginatedDataTable.defaultRowsPerPage,
-  //   DataTableSource source,
-  //   List<DataColumn> dataColumns,
-  //   Widget header,
-  //   bool showAction = false,
-  //   List<Widget> actions,
-  //   this.sortColumnIndex,
-  //   this.sortColumnAsc = true,
-  //   this.onRowChanged,
-  // })  : _source = source,
-  //       _dataColumns = dataColumns,
-  //       _header = header,
-  //       _showAction = showAction,
-  //       _actions = actions,
-  //       super(key: key);
+class CustomPaginatedTable extends StatelessWidget {
+  final List<Widget> actions;
+  final int rowsPerPage;
+  final Widget header;
+  final List<DataColumn> dataColumns;
+  final Function(String) onRowChanged;
+  final bool showAction;
+  final DataTableSource source;
+  final bool sortColumnIndex;
+  final bool sortColumnAsc;
+
+  const CustomPaginatedTable({
+    Key key,
+    this.actions,
+    this.rowsPerPage = PaginatedDataTable.defaultRowsPerPage,
+    this.header,
+    this.dataColumns,
+    this.onRowChanged,
+    this.showAction = false,
+    this.source,
+    this.sortColumnIndex,
+    this.sortColumnAsc = true,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaginatedTale();
+    return CustomPaginatedTable(
+      actions: [],
+      dataColumns: _col(),
+    );
   }
 
   List<DataColumn> _col() => <DataColumn>[

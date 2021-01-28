@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class BaseTextInput extends StatelessWidget {
   final TextEditingController textCtrl;
   final Function(String) onChangeText;
+  final Function(String) onSubmitted;
   final String hint;
   final FormFieldValidator<String> validator;
   final TextInputType keyboardType;
@@ -17,7 +18,8 @@ class BaseTextInput extends StatelessWidget {
       this.validator,
       this.keyboardType,
       this.textInputAction,
-      this.obscureText = false})
+      this.obscureText = false,
+      this.onSubmitted})
       : super(key: key);
 
   @override
@@ -25,6 +27,7 @@ class BaseTextInput extends StatelessWidget {
     return Container(
       child: TextFormField(
         controller: textCtrl,
+        onFieldSubmitted: (value) => onSubmitted(value),
         decoration: new InputDecoration(
           hintText: hint,
           fillColor: Colors.grey[500].withOpacity(0.5),

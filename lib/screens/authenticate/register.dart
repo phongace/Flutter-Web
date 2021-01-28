@@ -63,6 +63,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         : val != _pass.text
                             ? "Nhập lại mật khẩu chưa đúng!"
                             : null,
+                    onSubmitted: (val) => register(),
                   ),
                   const SizedBox(height: 18),
                   Container(

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:time_store/models/data-table/data.dart';
 
 class UserDataTableSource extends DataTableSource {
-  UserDataTableSource({@required List<Data> userData})
-      : _userData = userData,
+  UserDataTableSource({
+    @required List<Data> userData,
+  })  : _userData = userData,
         assert(userData != null);
 
   final List<Data> _userData;
@@ -20,6 +21,7 @@ class UserDataTableSource extends DataTableSource {
         DataCell(Text('${_user.email}')),
         DataCell(Text('${_user.phone}')),
         DataCell(Text('${_user.website}')),
+        DataCell(Text('dsdsadsd')),
       ],
     );
   }

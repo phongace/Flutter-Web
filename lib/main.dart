@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:time_store/providers/data-table-provider.dart';
 import 'package:time_store/providers/user-provider.dart';
 import 'package:time_store/router/router.dart';
 import 'package:time_store/screens/authenticate/login.dart';
@@ -7,7 +8,10 @@ import 'package:time_store/screens/authenticate/login.dart';
 void main() {
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider(create: (context) => UserProvider())],
+      providers: [
+        ChangeNotifierProvider(create: (context) => UserProvider()),
+        ChangeNotifierProvider(create: (context) => DataTableProvider()),
+      ],
       child: MyApp(),
     ),
   );
