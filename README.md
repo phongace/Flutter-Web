@@ -1,6 +1,6 @@
 # time_store
 
-A new Flutter project.
+Flutter for web.
 
 ## Getting Started
 
