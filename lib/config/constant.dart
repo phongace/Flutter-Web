@@ -9,6 +9,8 @@ class Constant {
   static const String colWebsite = 'Website';
   static const String otherDetails = 'Other Details';
 
+  static const String users = 'List Of User';
+
   //Refresh text
   static const String refresh = '🔄 Refreshed Successfully !!';
 }
