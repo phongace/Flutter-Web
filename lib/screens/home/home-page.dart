@@ -3,9 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:time_store/config/constant.dart';
 import 'package:time_store/models/data-table/data.dart';
 import 'package:time_store/providers/data-table-provider.dart';
-import 'package:time_store/router/routing-name.dart';
 import 'package:time_store/screens/home/utilities/data-table-source.dart';
 import 'package:time_store/screens/home/widgets/custom-paginated-table.dart';
+import 'package:time_store/widgets/navigation-bar.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -32,37 +32,35 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       backgroundColor: Colors.blueGrey[100],
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: 20),
-            GestureDetector(
-              onTap: () => Navigator.pushNamed(context, RoutingNameConstant.Login),
-              child: Text('DADSD'),
+      body: Row(
+        children: [
+          NavigationBar(),
+          const SizedBox(height: 20),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 30.0, right: 30.0, bottom: 280.0),
+              child: CustomPaginatedTable(
+                actions: <IconButton>[
+                  IconButton(
+                    splashColor: Colors.transparent,
+                    icon: Icon(Icons.refresh),
+                    onPressed: () {
+                      _provider.fetchData();
+                      showSBar(context, Constant.refresh);
+                    },
+                  )
+                ],
+                header: const Text(Constant.users),
+                showAction: true,
+                dataColumns: _column(_dtSource, _provider),
+                rowsPerPage: _provider.rowsPerPage,
+                source: _dtSource,
+                sortColumnIndex: _provider.sortColumnIndex,
+                sortColumnAsc: _provider.sortAscending,
+              ),
             ),
-            const SizedBox(height: 80),
-            // _dataTable(),
-            CustomPaginatedTable(
-              actions: <IconButton>[
-                IconButton(
-                  splashColor: Colors.transparent,
-                  icon: Icon(Icons.refresh),
-                  onPressed: () {
-                    _provider.fetchData();
-                    showSBar(context, Constant.refresh);
-                  },
-                )
-              ],
-              header: const Text(Constant.users),
-              showAction: true,
-              dataColumns: _column(_dtSource, _provider),
-              rowsPerPage: _provider.rowsPerPage,
-              source: _dtSource,
-              sortColumnIndex: _provider.sortColumnIndex,
-              sortColumnAsc: _provider.sortAscending,
-            )
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
