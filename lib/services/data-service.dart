@@ -10,7 +10,7 @@ class DataService {
       final response = await Dio().get(Constant.apiUrl);
       var data = response.data;
       List<dynamic> list = List.from(data);
-      List<Data> listData = list.map((e) => Data.fromJson(e)).toList();
+      List<Data> listData = list.map((d) => Data.fromJson(d)).toList();
       return listData;
     } catch (e) {
       return [];
