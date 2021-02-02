@@ -5,13 +5,13 @@ class CustomPaginatedTable extends StatelessWidget {
   final int rowsPerPage;
   final Widget header;
   final List<DataColumn> dataColumns;
-  final Function(String) onRowChanged;
+  final Function(int index) onRowChanged;
   final bool showAction;
   final DataTableSource source;
   final int sortColumnIndex;
   final bool sortColumnAsc;
 
-  const CustomPaginatedTable({
+  CustomPaginatedTable({
     Key key,
     this.actions,
     this.rowsPerPage = PaginatedDataTable.defaultRowsPerPage,
@@ -59,12 +59,13 @@ class CustomPaginatedTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.maxFinite,
+      width: double.infinity,
       child: PaginatedDataTable(
         actions: _fetchActions,
-        header: _fetchHeader,
         columns: _fetchDataColumns,
+        header: _fetchHeader,
         rowsPerPage: rowsPerPage,
+        onRowsPerPageChanged: onRowChanged,
         source: _fetchDataTableSource,
         sortColumnIndex: sortColumnIndex,
         sortAscending: sortColumnAsc,

@@ -6,6 +6,7 @@ import 'package:time_store/providers/data-table-provider.dart';
 import 'package:time_store/screens/home/utilities/data-table-source.dart';
 import 'package:time_store/screens/home/widgets/custom-paginated-table.dart';
 import 'package:time_store/widgets/navigation-bar.dart';
+import 'package:time_store/widgets/snackbar.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -35,28 +36,44 @@ class _HomePageState extends State<HomePage> {
       body: Row(
         children: [
           NavigationBar(),
-          const SizedBox(height: 20),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 30.0, right: 30.0, bottom: 280.0),
-              child: CustomPaginatedTable(
-                actions: <IconButton>[
-                  IconButton(
-                    splashColor: Colors.transparent,
-                    icon: Icon(Icons.refresh),
-                    onPressed: () {
-                      _provider.fetchData();
-                      showSBar(context, Constant.refresh);
-                    },
-                  )
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  Text(
+                    'Hello World!',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.indigo[300],
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 50),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+                    child: CustomPaginatedTable(
+                      actions: <IconButton>[
+                        IconButton(
+                          splashColor: Colors.transparent,
+                          icon: Icon(Icons.refresh),
+                          onPressed: () {
+                            _provider.fetchData();
+                            showSBar(context, Constant.refresh);
+                          },
+                        )
+                      ],
+                      header: const Text(Constant.users),
+                      showAction: true,
+                      dataColumns: _column(_dtSource, _provider),
+                      rowsPerPage: _provider.rowsPerPage,
+                      source: _dtSource,
+                      sortColumnIndex: _provider.sortColumnIndex,
+                      sortColumnAsc: _provider.sortAscending,
+                    ),
+                  ),
+                  const SizedBox(height: 50),
                 ],
-                header: const Text(Constant.users),
-                showAction: true,
-                dataColumns: _column(_dtSource, _provider),
-                rowsPerPage: _provider.rowsPerPage,
-                source: _dtSource,
-                sortColumnIndex: _provider.sortColumnIndex,
-                sortColumnAsc: _provider.sortAscending,
               ),
             ),
           )
@@ -116,16 +133,6 @@ class _HomePageState extends State<HomePage> {
     _src.sort<T>(getField, asc);
     _provider.sortAscending = asc;
     _provider.sortColumnIndex = colIndex;
-  }
-
-  void showSBar(BuildContext c, String text) {
-    ScaffoldMessenger.of(c).showSnackBar(
-      SnackBar(
-        duration: const Duration(milliseconds: 2000),
-        backgroundColor: Colors.blue[400],
-        content: Text(text),
-      ),
-    );
   }
 
   void _showDetails(BuildContext c, Data userData) async => await showDialog<bool>(
