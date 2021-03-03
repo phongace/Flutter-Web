@@ -73,7 +73,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       color: Colors.yellow[700],
                       borderRadius: BorderRadius.circular(5.0),
                     ),
-                    child: FlatButton(
+                    child: TextButton(
                       child: Text(
                         'Đăng ký',
                         style: TextStyle(color: Colors.white, fontSize: 16),

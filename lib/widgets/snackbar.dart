@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
-void showSBar(BuildContext c, String text) {
-  ScaffoldMessenger.of(c).showSnackBar(
-    SnackBar(
-      duration: const Duration(milliseconds: 2000),
-      backgroundColor: Colors.blue[400],
-      content: Text(text),
-    ),
-  );
+abstract class SnackbarBuilder {
+  static void showSnackBar(BuildContext c, String text, Color color) {
+    ScaffoldMessenger.of(c).showSnackBar(
+      SnackBar(
+        duration: const Duration(milliseconds: 2000),
+        backgroundColor: color,
+        content: Text(text),
+      ),
+    );
+  }
 }

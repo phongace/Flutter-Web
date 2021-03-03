@@ -1,7 +1,11 @@
 class Constant {
-  static final apiUrl = 'https://jsonplaceholder.typicode.com/users';
+  static final apiUrl = 'https://objective-app.herokuapp.com/api/';
+
+  static final apiUser = 'https://jsonplaceholder.typicode.com/users';
 
   static final apiCmt = 'https://jsonplaceholder.typicode.com/comments';
+
+  static const sucessText = 'SUCCESS';
 
   // COLUMNS
   static const String colName = 'Name';

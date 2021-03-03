@@ -53,7 +53,7 @@ class TableComments extends StatelessWidget {
                           icon: Icon(Icons.refresh),
                           onPressed: () {
                             _provider.fetchData();
-                            showSBar(context, Constant.refresh);
+                            SnackbarBuilder.showSnackBar(context, Constant.refresh, Colors.blue[700]);
                           },
                         )
                       ],

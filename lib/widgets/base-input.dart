@@ -10,17 +10,7 @@ class BaseTextInput extends StatelessWidget {
   final TextInputAction textInputAction;
   final bool obscureText;
 
-  const BaseTextInput(
-      {Key key,
-      this.textCtrl,
-      this.onChangeText,
-      this.hint,
-      this.validator,
-      this.keyboardType,
-      this.textInputAction,
-      this.obscureText = false,
-      this.onSubmitted})
-      : super(key: key);
+  const BaseTextInput({Key key, this.textCtrl, this.onChangeText, this.hint, this.validator, this.keyboardType, this.textInputAction, this.obscureText = false, this.onSubmitted}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
