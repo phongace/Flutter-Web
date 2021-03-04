@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:provider/provider.dart';
 import 'package:time_store/plugin/locator.dart';
 import 'package:time_store/plugin/navigator.dart';
@@ -12,14 +13,16 @@ import 'package:time_store/wrapper.dart';
 void main() {
   setupLocator();
   runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => TokenProvider()),
-        ChangeNotifierProvider(create: (context) => UserProvider()),
-        ChangeNotifierProvider(create: (context) => DataTableProvider()),
-        ChangeNotifierProvider(create: (context) => CommentProvider()),
-      ],
-      child: MyApp(),
+    Phoenix(
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => TokenProvider()),
+          ChangeNotifierProvider(create: (context) => UserProvider()),
+          ChangeNotifierProvider(create: (context) => DataTableProvider()),
+          ChangeNotifierProvider(create: (context) => CommentProvider()),
+        ],
+        child: MyApp(),
+      ),
     ),
   );
 }
