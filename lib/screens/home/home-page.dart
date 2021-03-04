@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:time_store/config/constant.dart';
 import 'package:time_store/models/data-table/data.dart';
@@ -49,6 +50,26 @@ class _HomePageState extends State<HomePage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  TextButton(
+                      onPressed: () {
+                        DatePicker.showDatePicker(
+                          context,
+                          showTitleActions: true,
+                          minTime: DateTime(2021, 1, 1),
+                          maxTime: DateTime(2022, 12, 31),
+                          onChanged: (date) {
+                            print('change $date');
+                          },
+                          onConfirm: (date) {
+                            print('confirm $date');
+                          },
+                          currentTime: DateTime.now(),
+                        );
+                      },
+                      child: Text(
+                        'show date time picker',
+                        style: TextStyle(color: Colors.blue),
+                      )),
                   const SizedBox(height: 50),
                   Padding(
                     padding: const EdgeInsets.only(left: 30.0, right: 30.0),

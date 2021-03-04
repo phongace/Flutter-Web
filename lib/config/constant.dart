@@ -5,7 +5,9 @@ class Constant {
 
   static final apiCmt = 'https://jsonplaceholder.typicode.com/comments';
 
-  static const sucessText = 'SUCCESS';
+  static const bool sucessStatus = true;
+
+  static const bool failStatus = false;
 
   // COLUMNS
   static const String colName = 'Name';

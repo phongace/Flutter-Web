@@ -112,26 +112,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  // void login() async {
-  //   String username = await SharedPrefsService.getUsername();
-  //   String pass = await SharedPrefsService.getPassword();
-
-  //   if (_formKey.currentState.validate()) {
-  //     if (_username.text == username && _pass.text == pass) {
-  //       Navigator.pushNamed(context, RoutingNameConstant.Home);
-  //     } else {
-  //       // Show SnackBar on Flutter Web
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         SnackBar(
-  //           duration: const Duration(milliseconds: 2000),
-  //           backgroundColor: Colors.blue[400],
-  //           content: const Text('Login fail!'),
-  //         ),
-  //       );
-  //     }
-  //   }
-  // }
-
   Future<bool> _handleLogin() async {
     if (!_formKey.currentState.validate()) {
       return false;
@@ -140,7 +120,6 @@ class _LoginPageState extends State<LoginPage> {
     map['email'] = _username.text;
     map['password'] = _pass.text;
     final response = await AuthService.login(map);
-    print('Response: $response');
     if (response.data == null) {
       return false;
     }

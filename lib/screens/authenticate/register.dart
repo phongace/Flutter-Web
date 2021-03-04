@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:time_store/providers/user-provider.dart';
 import 'package:time_store/router/routing-name.dart';
+import 'package:time_store/services/auth-service.dart';
 import 'package:time_store/widgets/base-input.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -11,6 +10,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   var _username = TextEditingController();
+  var _emailCltr = TextEditingController();
   var _pass = TextEditingController();
   var _rePass = TextEditingController();
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
@@ -48,6 +48,12 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   const SizedBox(height: 18),
                   BaseTextInput(
+                    hint: 'Email',
+                    textCtrl: _emailCltr,
+                    validator: (val) => val.isEmpty ? "Email không được để trống!" : null,
+                  ),
+                  const SizedBox(height: 18),
+                  BaseTextInput(
                     hint: 'Mật khẩu',
                     textCtrl: _pass,
                     obscureText: true,
@@ -63,7 +69,13 @@ class _RegisterPageState extends State<RegisterPage> {
                         : val != _pass.text
                             ? "Nhập lại mật khẩu chưa đúng!"
                             : null,
-                    onSubmitted: (val) => register(),
+                    onSubmitted: (val) {
+                      _handleRegister().then((value) {
+                        if (value) {
+                          Navigator.pushNamedAndRemoveUntil(context, RoutingNameConstant.Login, (route) => false);
+                        }
+                      });
+                    },
                   ),
                   const SizedBox(height: 18),
                   Container(
@@ -78,7 +90,13 @@ class _RegisterPageState extends State<RegisterPage> {
                         'Đăng ký',
                         style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
-                      onPressed: () => register(),
+                      onPressed: () {
+                        _handleRegister().then((value) {
+                          if (value) {
+                            Navigator.pushNamedAndRemoveUntil(context, RoutingNameConstant.Login, (route) => false);
+                          }
+                        });
+                      },
                     ),
                   ),
                   const SizedBox(height: 15),
@@ -109,27 +127,19 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  void register() {
-    if (_formKey.currentState.validate()) {
-      final user = Provider.of<UserProvider>(context, listen: false);
-      user.registerUser(_username.text, _pass.text);
-      Navigator.pop(context);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          duration: const Duration(milliseconds: 1000),
-          backgroundColor: Colors.blue[400],
-          content: const Text('Register success!'),
-        ),
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          duration: const Duration(milliseconds: 2000),
-          backgroundColor: Colors.red[400],
-          content: const Text('Register fail!'),
-        ),
-      );
+  Future<bool> _handleRegister() async {
+    if (!_formKey.currentState.validate()) {
+      return false;
     }
+    Map map = new Map();
+    map['name'] = _username.text;
+    map['email'] = _emailCltr.text;
+    map['password'] = _pass.text;
+    final response = await AuthService.register(map);
+    if (response.data == null) {
+      return false;
+    }
+    return true;
   }
 
   Widget _logo() {

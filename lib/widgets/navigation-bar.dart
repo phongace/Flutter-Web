@@ -4,6 +4,7 @@ import 'package:time_store/providers/token-provider.dart';
 import 'package:time_store/router/routing-name.dart';
 import 'package:time_store/screens/home/home-page.dart';
 import 'package:time_store/screens/table/table-comments-api.dart';
+import 'package:time_store/utils/dialog-builder.dart';
 
 class NavigationBar extends StatefulWidget {
   @override
@@ -56,8 +57,15 @@ class _NavigationBarState extends State<NavigationBar> {
                   active: false,
                   icon: Icons.logout,
                   touched: () {
-                    Provider.of<TokenProvider>(context, listen: false).removeToken();
-                    Navigator.pushNamedAndRemoveUntil(context, RoutingNameConstant.Login, (route) => false);
+                    DialogBuilder.buildConfirmDialog(
+                      context: context,
+                      message: 'Do you really want to log out',
+                    ).then((value) {
+                      if (value) {
+                        Provider.of<TokenProvider>(context, listen: false).removeToken();
+                        Navigator.pushNamedAndRemoveUntil(context, RoutingNameConstant.Login, (route) => false);
+                      }
+                    });
                   }),
             )
           ],

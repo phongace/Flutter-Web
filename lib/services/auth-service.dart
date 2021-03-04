@@ -13,4 +13,15 @@ class AuthService {
       return null;
     }
   }
+
+  static Future<ResponseData> register(Map data) async {
+    try {
+      var response = await http.post(Constant.apiUrl + 'register', data: data);
+      ResponseData responseData = response.data;
+      return responseData;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
 }

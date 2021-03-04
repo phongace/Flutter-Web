@@ -38,7 +38,12 @@ buildInterceptorsWrapper() {
       // Do something with response data
       if (response != null && response.data != null) {
         if (response.data['status'] != null) {
-          response.data['status'] = response.data['status'] == Constant.sucessText;
+          if (response.data['status'] == 'FAILED') {
+            response.data['status'] = Constant.failStatus;
+          } else {
+            response.data['status'] = Constant.sucessStatus;
+          }
+          // response.data['status'] = response.data['status'] == Constant.sucessText;
         }
         ResponseData responseData = ResponseData.fromJson(response.data);
         String message = responseData.message ?? null;
