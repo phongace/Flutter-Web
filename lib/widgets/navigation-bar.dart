@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:time_store/providers/token-provider.dart';
 import 'package:time_store/router/routing-name.dart';
 import 'package:time_store/screens/home/home-page.dart';
 import 'package:time_store/screens/table/table-comments-api.dart';
@@ -51,10 +53,12 @@ class _NavigationBarState extends State<NavigationBar> {
             Align(
               alignment: Alignment.bottomCenter,
               child: NavBarItem(
-                active: false,
-                icon: Icons.logout,
-                touched: () => Navigator.pushNamed(context, RoutingNameConstant.Login),
-              ),
+                  active: false,
+                  icon: Icons.logout,
+                  touched: () {
+                    Provider.of<TokenProvider>(context, listen: false).removeToken();
+                    Navigator.pushNamedAndRemoveUntil(context, RoutingNameConstant.Login, (route) => false);
+                  }),
             )
           ],
         ),
